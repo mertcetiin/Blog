@@ -7,12 +7,14 @@ type BlogStore = {
     setContent: any;
     blogState: any;
     handleBlog: () => void;
+    counter: number;
 }
 
 export const useBlogStore = create<BlogStore>()((set) => ({
     setTitle: '',
     setContent: '',
     blogState: [],
+    counter: 0,
 
     title: (value => set({ setTitle: value })),
     content: (value => set({ setContent: value })),
