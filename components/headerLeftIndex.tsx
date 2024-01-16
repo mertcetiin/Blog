@@ -2,11 +2,11 @@
 import { useRouter } from 'next/navigation';
 
 function HeaderLeftIndex() {
-
     const router = useRouter();
 
     const handleRouter = () => {
         router.push('/writeIndex')
+
     }
 
     return (
