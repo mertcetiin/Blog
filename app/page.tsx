@@ -1,13 +1,13 @@
-import HeaderTopIndex from '@/components/headerTopIndex'
-import HeaderBlogIndex from '@/container/headerBlogIndex'
+import HeaderLeftIndex from '@/components/headerLeftIndex'
+import HeaderTopIndex from '@/components/headerTopIndex';
 import Image from 'next/image'
 
 
 export default function Home() {
   return (
-    <div>
+    <div className="h-screen w-full bg-white relative flex overflow-hidden">
+      <HeaderLeftIndex />
       <HeaderTopIndex />
-      <HeaderBlogIndex />
     </div>
   )
 }
