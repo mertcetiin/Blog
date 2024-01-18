@@ -1,6 +1,26 @@
-import React from 'react'
+"use client"
+import { auth, provider } from '@/lib/firebase';
+import { signInWithPopup } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
+
 
 function LoginIndex() {
+
+    const router = useRouter();
+
+    const loginAuthentication = async () => {
+        try {
+            await signInWithPopup(auth, provider);
+            router.push('/')
+
+            console.log('Google login successful');
+        } catch (error) {
+            console.error('Google login failed');
+        }
+
+    }
+
+
     return (
         <div className="relative min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8  bg-no-repeat bg-cover">
             <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
@@ -14,7 +34,7 @@ function LoginIndex() {
                     </p>
                 </div>
                 <div className="flex flex-row justify-center items-center space-x-3">
-                    <button className="w-14 h-14 items-center justify-center inline-flex rounded-full font-bold text-lg  text-white bg-blue-200 hover:shadow-lg cursor-pointer transition ease-in duration-300">
+                    <button onClick={loginAuthentication} className="w-14 h-14 items-center justify-center inline-flex rounded-full font-bold text-lg  text-white bg-blue-200 hover:shadow-lg cursor-pointer transition ease-in duration-300">
                         <svg className='w-8 h-8' viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -40,7 +60,7 @@ function LoginIndex() {
                         <input
                             type="email"
                             className="text-sm w-full py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-                            placeholder="x@gmail.com"
+                            placeholder="x@mail.com"
                             required
                         />
                     </div>
