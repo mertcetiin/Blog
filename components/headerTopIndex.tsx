@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import BlogIndex from './blogIndex';
 import { auth } from '@/lib/firebase';
+import { signOut } from 'firebase/auth';
 
 function headerTopIndex() {
 
@@ -15,6 +16,16 @@ function headerTopIndex() {
         return () => unsubscribe();
     }, [])
 
+    const logoutAuthentication = async () => {
+        try {
+            if (user) {
+                await signOut(auth);
+            }
+        } catch (error) {
+            console.error('Google logout failed');
+        }
+    }
+
     return (
         <div className="w-full h-full flex flex-col justify-between">
             <header className="h-16 w-full flex items-center relative justify-end px-5 space-x-10 bg-gray-800">
@@ -22,10 +33,10 @@ function headerTopIndex() {
                     <div className="flex flex-col items-end ">
                         <div className="text-base">{user?.displayName}</div>
                     </div>
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center bg-gray-400 text-white text-sm">
+                    <div className={`${user ? 'w-8 h-8 rounded-full flex items-center justify-center bg-gray-400 text-white text-sm' : ''}`}>
                         {user ? user.displayName?.charAt(0).toUpperCase() : null}
                     </div>
-                    <div className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
+                    <div onClick={logoutAuthentication} className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
                         <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
