@@ -17,7 +17,6 @@ function LoginIndex() {
         } catch (error) {
             console.error('Google login failed');
         }
-
     }
 
     return (
