@@ -51,4 +51,4 @@ function BlogIndex() {
     )
 }
 
-export default BlogIndex
+export default BlogIndex;
