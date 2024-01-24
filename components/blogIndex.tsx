@@ -2,9 +2,8 @@
 import { useBlogStore } from '@/states/store'
 
 
-function BlogIndex() {
+function BlogIndex({ blogState }: any) {
 
-    const blogState = useBlogStore((state) => state.blogState);
     const counter = useBlogStore((state) => state.counter);
 
     return (

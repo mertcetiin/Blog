@@ -15,16 +15,6 @@ function headerTopIndex({ user }: any) {
         router.push('/login')
     }
 
-    // const [user, setUser] = useState(auth.currentUser || null);
-
-    // useEffect(() => {
-    //     const unsubscribe = auth.onAuthStateChanged((authUser) => {
-    //         setUser(authUser);
-    //     });
-
-    //     return () => unsubscribe();
-    // }, [])
-
     const logoutAuthentication = async () => {
         try {
             if (user) {
@@ -79,8 +69,6 @@ function headerTopIndex({ user }: any) {
                     </div>
                 </div>
             </header>
-
-
         </div>
     )
 }
