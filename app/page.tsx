@@ -1,17 +1,19 @@
 "use client";
 import HeaderTopIndex from '@/components/headerTopIndex';
-import { useEffect, useState } from 'react';
 import BlogIndex from '@/components/blogIndex';
+import WriteIndex from './writeIndex/page';
+import { useEffect, useState } from 'react';
+import { useBlogStore } from '@/states/store';
+
 import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from "@/lib/firebase";
-import WriteIndex from './writeIndex/page';
-import { useBlogStore } from '@/states/store';
+
 
 
 export default function Home() {
 
   const [user, setUser] = useState(auth.currentUser || null);
-  const [shouldRenderWriteIndex] = useState(false);
+  const [shouldRenderWriteIndex, setShouldRenderWriteIndex] = useState(false);
 
   const title = useBlogStore((state) => state.title);
   const setTitle = useBlogStore((state) => state.setTitle);
@@ -50,7 +52,7 @@ export default function Home() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    handleBlog();
+    //  handleBlog();
 
     const { uid } = auth.currentUser || {}
     try {
