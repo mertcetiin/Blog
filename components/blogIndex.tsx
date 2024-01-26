@@ -1,9 +1,11 @@
 "use client"
+import { auth } from '@/lib/firebase';
 import { useBlogStore } from '@/states/store'
 
 
 function BlogIndex({ blogState }: any) {
 
+    const currentUser = auth.currentUser;
     const counter = useBlogStore((state) => state.counter);
 
     return (
@@ -11,7 +13,7 @@ function BlogIndex({ blogState }: any) {
             <div className="h-full w-full m-4 flex flex-wrap items-start justify-start rounded-tl grid-flow-col auto-cols-max gap-4 overflow-y-scroll">
                 <div className="focus:outline-none py-8 w-full">
                     <div className="lg:flex items-center justify-center w-full">
-                        {blogState.map((item: any, id: number) => (
+                        {currentUser ? blogState.map((item: any, id: number) => (
                             <div key={id} className="focus:outline-none lg:w-4/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded">
                                 <div className="flex items-center border-b border-gray-200 pb-6">
                                     <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gray-400 text-white text-xl">
@@ -40,7 +42,7 @@ function BlogIndex({ blogState }: any) {
                                     </p>
                                 </div>
                             </div>
-                        ))}
+                        )) : ''}
                     </div>
 
                 </div>

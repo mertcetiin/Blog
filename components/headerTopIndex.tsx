@@ -28,7 +28,6 @@ function headerTopIndex({ user }: any) {
     return (
         <div className="w-full h-full flex flex-col justify-between">
             <header className="h-16 w-full flex items-center relative justify-end px-5 space-x-10 bg-gray-800">
-
                 <div onClick={handleWriteRouter} className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
                     <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

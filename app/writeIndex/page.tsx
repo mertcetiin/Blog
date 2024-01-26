@@ -1,14 +1,45 @@
 "use client"
 import { useBlogStore } from '@/states/store';
+import { auth, db } from '@/lib/firebase';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
 
-function WriteIndex({ handleSubmit }: any) {
+function WriteIndex() {
 
-    const title = useBlogStore((state) => state.title);
-    const setTitle = useBlogStore((state) => state.setTitle);
+    const { title, setTitle } = useBlogStore((state) => ({
+        title: state.title,
+        setTitle: state.setTitle,
+    }));
+
+
 
     // const content = useBlogStore((state) => state.content);
     // const setContent = useBlogStore((state) => state.setContent);
+
+    const blogStateRef = collection(db, 'blogState');
+
+    const handleSubmit: any = async (e: any) => {
+        e.preventDefault();
+
+        if (!auth.currentUser) {
+            console.error('User is not authenticated.');
+            return;
+        }
+
+        const { uid } = auth.currentUser || {}
+        try {
+            await addDoc(blogStateRef, {
+                title: title,
+                createdAt: serverTimestamp(),
+                uid,
+            });
+            console.log('Message added successfully.');
+            setTitle('')
+        } catch (error) {
+            console.error('Message could not be added:', error)
+        }
+
+    }
 
     return (
         <div className="max-w-md mx-auto mt-32">
