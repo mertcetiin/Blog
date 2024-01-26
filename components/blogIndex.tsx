@@ -23,7 +23,7 @@ function BlogIndex({ blogState }: any) {
                                     <div className="flex items-start justify-between w-full">
                                         <div className="pl-3 w-full">
                                             <p className="focus:outline-none text-xl font-medium leading-5 text-gray-800">
-                                                {item.title}
+                                                {item.title.toUpperCase()}
                                             </p>
                                             <p className="focus:outline-none text-sm leading-normal pt-2 text-gray-500">
                                                 {counter}

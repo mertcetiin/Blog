@@ -11,10 +11,10 @@ function WriteIndex() {
         setTitle: state.setTitle,
     }));
 
-
-
-    // const content = useBlogStore((state) => state.content);
-    // const setContent = useBlogStore((state) => state.setContent);
+    const { content, setContent } = useBlogStore((state) => ({
+        content: state.content,
+        setContent: state.setContent,
+    }));
 
     const blogStateRef = collection(db, 'blogState');
 
@@ -25,16 +25,22 @@ function WriteIndex() {
             console.error('User is not authenticated.');
             return;
         }
+        if (title === '' || content === '') {
+            console.error('Title is required.');
+            return;
+        }
 
         const { uid } = auth.currentUser || {}
         try {
             await addDoc(blogStateRef, {
                 title: title,
+                content: content,
                 createdAt: serverTimestamp(),
                 uid,
             });
             console.log('Message added successfully.');
             setTitle('')
+            setContent('')
         } catch (error) {
             console.error('Message could not be added:', error)
         }
@@ -56,19 +62,19 @@ function WriteIndex() {
                         className="mt-1 p-2 w-full rounded-md shadow-md outline-none"
                     />
                 </div>
-                {/* <div className="mb-6">
+                <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-600">Content</label>
                     <textarea
                         id="content"
                         name="content"
-                        value={setContent}
-                        onChange={(e) => content(e.target.value)}
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
                         className="mt-1 p-2 w-full h-48 rounded-md shadow-md outline-none"
                     ></textarea>
-                </div> */}
+                </div>
                 <button
                     type='submit'
-                    className="bg-gray-800 text-white px-4 py-2 rounded-md w-full hover:bg-gray-900 focus:outline-none focus:ring focus:border-blue-300"
+                    className="bg-gray-800 text-white px-4 py-2 rounded-md w-full hover:bg-gray-900 focus:outline-none focus:ring outline-none"
                 >Add
                 </button>
             </form>
