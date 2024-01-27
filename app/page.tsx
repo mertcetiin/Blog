@@ -5,12 +5,14 @@ import BlogIndex from '@/components/blogIndex';
 import { useEffect, useState } from 'react';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { auth, db } from "@/lib/firebase";
+import { useBlogStore } from '@/states/store';
 
 
 export default function Home() {
 
   const [user, setUser] = useState(auth.currentUser || null);
-  const [blogState, setBlogState] = useState([]);
+
+  const setBlogState = useBlogStore((state) => state.setBlogState);
 
   const blogStateRef = collection(db, 'blogState');
 
@@ -28,11 +30,11 @@ export default function Home() {
 
     const unsuscribe = onSnapshot(queryMessages, (snapshot) => {
       console.log('Snapshot Changes:', snapshot.docChanges());
-      let blogState: any = [];
+      let blogStateData: any = [];
       snapshot.forEach((doc) => {
-        blogState.push({ ...doc.data(), id: doc.id })
+        blogStateData.push({ ...doc.data(), id: doc.id })
       });
-      setBlogState(blogState)
+      setBlogState(blogStateData)
     });
 
     return () => unsuscribe()
@@ -41,7 +43,7 @@ export default function Home() {
   return (
     <div>
       <HeaderTopIndex user={user} />
-      <BlogIndex blogState={blogState} />
+      <BlogIndex />
     </div>
   )
 }

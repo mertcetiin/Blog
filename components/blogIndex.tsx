@@ -1,12 +1,24 @@
 "use client"
 import { auth } from '@/lib/firebase';
 import { useBlogStore } from '@/states/store'
+import { useState } from 'react';
 
 
-function BlogIndex({ blogState }: any) {
+function BlogIndex() {
 
     const currentUser = auth.currentUser;
-    const counter = useBlogStore((state) => state.counter);
+    const blogState = useBlogStore((state) => state.blogState);
+
+    // const counter = useBlogStore((state) => state.counter);
+    //  const handleCounter = useBlogStore((state) => state.handleCounter);
+    const [counter, setCounter] = useState(0);
+
+    const handleCounter = () => {
+        setCounter((prev) => prev + 1)
+        if (counter === 1) {
+            setCounter((prev) => prev - 1)
+        }
+    }
 
     return (
         <div className="max-w-full h-full flex relative overflow-y-hidden">
@@ -29,7 +41,7 @@ function BlogIndex({ blogState }: any) {
                                                 {counter}
                                             </p>
                                         </div>
-                                        <button>
+                                        <button onClick={(handleCounter)}>
                                             <svg className="focus:outline-none" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M10.5001 4.66667H17.5001C18.1189 4.66667 18.7124 4.9125 19.15 5.35009C19.5876 5.78767 19.8334 6.38117 19.8334 7V23.3333L14.0001 19.8333L8.16675 23.3333V7C8.16675 6.38117 8.41258 5.78767 8.85017 5.35009C9.28775 4.9125 9.88124 4.66667 10.5001 4.66667Z" stroke="#2C3E50" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
@@ -44,9 +56,7 @@ function BlogIndex({ blogState }: any) {
                             </div>
                         )) : ''}
                     </div>
-
                 </div>
-
             </div>
         </div>
     )
