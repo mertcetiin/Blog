@@ -40,6 +40,7 @@ export default function Home() {
     return () => unsuscribe()
   }, [])
 
+
   return (
     <div>
       <HeaderTopIndex user={user} />

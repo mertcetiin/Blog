@@ -16,6 +16,8 @@ function WriteIndex() {
         setContent: state.setContent,
     }));
 
+    const counter = useBlogStore((state) => state.counter);
+
     const blogStateRef = collection(db, 'blogState');
 
     const handleSubmit: any = async (e: any) => {
@@ -37,6 +39,7 @@ function WriteIndex() {
                 content: content,
                 createdAt: serverTimestamp(),
                 uid,
+                counter: counter,
             });
             console.log('Message added successfully.');
             setTitle('')
