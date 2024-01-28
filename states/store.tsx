@@ -1,14 +1,21 @@
 import { create } from "zustand";
 
+type BlogStateItem = {
+    title: string;
+    content: string;
+    uid: any;
+}
+
 type BlogStore = {
     title: string;
     setTitle: (value: string) => void;
     content: string;
     setContent: (value: string) => void;
-    blogState: [],
+    blogState: BlogStateItem[],
     setBlogState: (newBlogState: any) => void;
 
 };
+
 
 export const useBlogStore = create<BlogStore>((set) => ({
     title: '',

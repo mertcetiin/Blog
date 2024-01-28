@@ -61,8 +61,8 @@ function BlogIndex() {
         <div className="py-16 bg-gradient-to-br bg-green-50 to-cyan-100">
             <div className="container m-auto px-6 text-gray-600 md:px-12 xl:px-6">
                 <div className="grid gap-12 lg:grid-cols-2">
-                    {blogState.map((item: any, id: number) => (
-                        <div key={id} className="p-1 rounded-xl group sm:flex space-x-6 bg-white bg-opacity-50 shadow-xl hover:rounded-2xl">
+                    {blogState.map((item: any) => (
+                        <div key={item.uid} className="p-1 rounded-xl group sm:flex space-x-6 bg-white bg-opacity-50 shadow-xl hover:rounded-2xl">
                             <img
                                 src={item.imageUrl}
                                 className="h-56 sm:h-full w-full sm:w-5/12 object-cover object-top rounded-lg transition duration-500 group-hover:rounded-xl"
