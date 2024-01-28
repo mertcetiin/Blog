@@ -1,10 +1,16 @@
 "use client"
+import { useState } from 'react';
 import { useBlogStore } from '@/states/store';
 import { auth, db } from '@/lib/firebase';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
+import { useRouter } from 'next/navigation';
 
 
 function WriteIndex() {
+
+    const router = useRouter();
+    const storage = getStorage();
 
     const { title, setTitle } = useBlogStore((state) => ({
         title: state.title,
@@ -16,9 +22,16 @@ function WriteIndex() {
         setContent: state.setContent,
     }));
 
-    const counter = useBlogStore((state) => state.counter);
+    const [image, setImage] = useState<File | null>(null);
+
 
     const blogStateRef = collection(db, 'blogState');
+
+
+    const handleImageChange = (e: any) => {
+        const selectedImage = e.target.files[0];
+        setImage(selectedImage);
+    };
 
     const handleSubmit: any = async (e: any) => {
         e.preventDefault();
@@ -32,23 +45,39 @@ function WriteIndex() {
             return;
         }
 
+        if (!image) {
+            console.error('Image is required')
+            return;
+        }
+
         const { uid } = auth.currentUser || {}
         try {
+            let imageUrl = '';
+
+            if (image) {
+                const imageRef = ref(storage, `images/${image.name}`);
+                await uploadBytes(imageRef, image);
+                imageUrl = await getDownloadURL(imageRef);
+            }
+
             await addDoc(blogStateRef, {
                 title: title,
                 content: content,
                 createdAt: serverTimestamp(),
                 uid,
-                counter: counter,
+                imageUrl: imageUrl,
             });
-            console.log('Message added successfully.');
-            setTitle('')
-            setContent('')
-        } catch (error) {
-            console.error('Message could not be added:', error)
-        }
 
-    }
+            console.log('Message added successfully.');
+            setTitle('');
+            setContent('');
+            setImage(null);
+        } catch (error) {
+            console.error('Message could not be added:', error);
+        }
+        router.push('/')
+    };
+
 
     return (
         <div className="max-w-md mx-auto mt-32">
@@ -74,6 +103,15 @@ function WriteIndex() {
                         onChange={(e) => setContent(e.target.value)}
                         className="mt-1 p-2 w-full h-48 rounded-md shadow-md outline-none"
                     ></textarea>
+                </div>
+                <div className="mb-6">
+                    <label className="block text-sm font-medium text-gray-600">Image</label>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleImageChange(e)}
+                        className="mt-1 p-2 w-full rounded-md shadow-md outline-none"
+                    />
                 </div>
                 <button
                     type='submit'
