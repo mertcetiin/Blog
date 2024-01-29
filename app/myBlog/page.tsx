@@ -19,6 +19,7 @@ function MyBlogIndex() {
     }
 
     const blogState = useBlogStore((state) => state.blogState);
+    const savedBlog = useBlogStore((state) => state.savedBlog);
 
     const [filterBlog, setFilterBlog]: any = useState([]);
 
@@ -40,7 +41,7 @@ function MyBlogIndex() {
                             <img
                                 src={item.imageUrl}
                                 className="object-cover w-full h-56 rounded-lg lg:w-64"
-                                alt="" />
+                                alt={item.title} />
 
                             <div className="flex flex-col justify-between py-6 lg:mx-6">
                                 <a href="#" className="text-xl font-semibold text-gray-800 hover:underline">
@@ -57,16 +58,18 @@ function MyBlogIndex() {
                 <h1 onClick={handleSavedPageRouter} className="text-3xl font-semibold text-gray-900 capitalize lg:text-4xl cursor-pointer">Kaydedilenler</h1>
 
                 <div className="grid grid-cols-1 gap-8 mt-8 md:mt-2 md:grid-cols-2">
-                    {currentUser ? blogState.map((item: any) => (
+                    {currentUser ? savedBlog.map((item: any) => (
                         <div className="lg:flex" key={item.uid}>
-                            {/* <img className="object-cover w-full h-56 rounded-lg lg:w-64" src="https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="" />
+                            <img className="object-cover w-full h-56 rounded-lg lg:w-64"
+                                src={item.imageUrl}
+                                alt={item.title} />
 
                             <div className="flex flex-col justify-between py-6 lg:mx-6">
                                 <a href="#" className="text-xl font-semibold text-gray-800 hover:underline">
                                     {item.title}
                                 </a>
                                 <span className="text-sm text-gray-500">{item.content}</span>
-                            </div> */}
+                            </div>
                         </div>
                     )) : ''}
                 </div>

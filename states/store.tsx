@@ -11,9 +11,12 @@ type BlogStore = {
     setTitle: (value: string) => void;
     content: string;
     setContent: (value: string) => void;
+
     blogState: BlogStateItem[],
     setBlogState: (newBlogState: any) => void;
 
+    savedBlog: BlogStateItem[],
+    setSavedBlog: (newBlogSave: any) => void;
 };
 
 
@@ -25,4 +28,7 @@ export const useBlogStore = create<BlogStore>((set) => ({
 
     blogState: [],
     setBlogState: (newBlogState) => set({ blogState: newBlogState }),
+
+    savedBlog: [],
+    setSavedBlog: (newBlogSave) => set({ savedBlog: newBlogSave }),
 }));

@@ -81,7 +81,7 @@ function WriteIndex() {
 
     return (
         <div className="max-w-md mx-auto mt-32">
-            <h1 className="text-3xl font-bold mb-4">Blog</h1>
+            <h1 className="text-3xl font-bold mb-4">M Blog</h1>
             <form onSubmit={handleSubmit} >
                 <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-600">Title</label>
@@ -92,6 +92,7 @@ function WriteIndex() {
                         onChange={(e) => setTitle(e.target.value)}
                         value={title}
                         className="mt-1 p-2 w-full rounded-md shadow-md outline-none"
+                        required
                     />
                 </div>
                 <div className="mb-6">
@@ -102,6 +103,7 @@ function WriteIndex() {
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                         className="mt-1 p-2 w-full h-48 rounded-md shadow-md outline-none"
+                        required
                     ></textarea>
                 </div>
                 <div className="mb-6">
@@ -111,6 +113,7 @@ function WriteIndex() {
                         accept="image/*"
                         onChange={(e) => handleImageChange(e)}
                         className="mt-1 p-2 w-full rounded-md shadow-md outline-none"
+                        required
                     />
                 </div>
                 <button
