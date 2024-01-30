@@ -33,7 +33,7 @@ function BlogIndex() {
                         <div key={item.uid} className="p-1 rounded-xl group sm:flex space-x-6 bg-white bg-opacity-50 shadow-xl hover:rounded-2xl">
                             <img
                                 src={item.imageUrl}
-                                className="h-56 sm:h-full w-full sm:w-5/12 object-cover object-top rounded-lg transition duration-500 group-hover:rounded-xl"
+                                className="h-56 sm:h-200 w-full sm:w-5/12 object-cover object-top rounded-lg transition duration-500 group-hover:rounded-xl"
                                 alt={item.title}
                             />
                             <div className="sm:w-7/12 pl-0 p-5">
@@ -47,9 +47,11 @@ function BlogIndex() {
                                                 </svg>
                                             </button>
                                         </div>
-                                        <p className="text-gray-600">{item.content}</p>
+                                        <p className="text-gray-600">
+                                            {`${item.content.slice(0, 20)}...`}
+                                            <a href='/movieDetail' className="text-cyan-600">Read more</a>
+                                        </p>
                                     </div>
-                                    <a href='/movieDetail' className="block w-max text-cyan-600">Read more</a>
                                 </div>
                             </div>
                         </div>
