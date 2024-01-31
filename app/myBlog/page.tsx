@@ -9,7 +9,6 @@ function MyBlogIndex() {
     const currentUser = auth.currentUser;
 
     const router = useRouter();
-
     const handleMainPageRouter = () => {
         router.push('/')
     }
@@ -21,6 +20,7 @@ function MyBlogIndex() {
     const blogState = useBlogStore((state) => state.blogState);
     const savedBlog = useBlogStore((state) => state.savedBlog);
 
+
     const [filterBlog, setFilterBlog]: any = useState([]);
 
     useEffect(() => {
@@ -29,6 +29,7 @@ function MyBlogIndex() {
             setFilterBlog(filteredBlogState)
         }
     }, [currentUser, blogState])
+
 
     return (
         <div className="bg-white">
@@ -79,4 +80,4 @@ function MyBlogIndex() {
     )
 }
 
-export default MyBlogIndex
+export default MyBlogIndex;

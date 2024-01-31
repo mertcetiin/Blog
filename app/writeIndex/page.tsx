@@ -60,6 +60,8 @@ function WriteIndex() {
                 imageUrl = await getDownloadURL(imageRef);
             }
 
+            const userBlogCollectionRef = collection(db, 'users', uid, 'blogState');
+
             await addDoc(blogStateRef, {
                 title: title,
                 content: content,
